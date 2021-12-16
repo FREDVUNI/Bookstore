@@ -1,0 +1,33 @@
+<%- include("../layouts/header")%>
+    <div class="mt-5">
+    <div class="container">
+        <div class="row justify-content-center">
+           <div class="col-lg-6">
+                <div class="mt-5">
+                <h4 class="text-muted">Books By <%= author.name  %></h4>
+                <article class="row">
+                    <% books.forEach(book=>{ %>
+                        <div class="col-md-4 mt-3">
+                            <h6 class="mt-30 theme-color"> <%=book.title %> </h6>
+                            <a href="#">
+                                <img class="card-img h-75" src="/images/<%=book.coverImage %>" alt="book"/>
+                            </a>
+                            <span class="d-flex mt-3">
+                               <a class="btns btn-light btn-sm" href="/authors/<%= author._id  %>/edit">
+                                    <i class="fa fa-pencil-alt"></i>
+                                </a>
+                                <form method="POST" action="/authors/<%= author._id  %>/delete?_method=DELETE">
+                                    <button type="submit" class="btns btn-light btn-sm">
+                                        <i class="fa fa-trash"></i>
+                                    </button>
+                                </form> 
+                            </span>
+                        </div>
+                    <% }) %>
+                </article>
+              </div>
+           </div>
+        </div>
+    </div>
+</div>
+<%- include("../layouts/footer")%>

@@ -1,0 +1,171 @@
+<%- include("../layouts/header")%>
+    <div class="mt-5">
+    <div class="container">
+        <div class="row justify-content-center">
+           <div class="col-lg-5">
+                <div class="mt-5">
+                    <% if(locals.errorMsg){ %>
+                        <div class="alert alert-danger"><%= errorMsg  %></div>
+                    <% } %>
+                    <h4 class="text-muted">Edit Book <%=book.title  %></h4>
+                    <form action="/books/<%=book.id %>/update?_method=PUT" method="POST" enctype="multipart/form-data" id="validate" novalidate="novalidate">
+                        <div class="row mt-3">
+                            <div class="col-lg-6">  
+                                <div class="form-group">
+                                    <label for="book">Book title</label>
+                                    <input type="text" name="title" id="title" class="form-control" placeholder="Enter book title" value="<%=book.title%>">
+                                </div>
+                            </div>
+                            <div class="col-lg-6"> 
+                                <div class="form-group">
+                                    <label for="author">Author</label>
+                                    <select class="form-control" name="author" id="author">
+                                        <option value="<%=book.author._id  %>"><%=book.author.name  %></option>
+                                        <% authors.forEach(author=>{ %>
+                                            <% if(author._id === book.author){ %>
+                                            <option selected label="<%=author.name %>" value="<%=author._id  %>">
+                                                <%= author.name %>
+                                            </option>
+                                            <% }else{ %>
+                                            <option label="<%=author.name %>" value="<%=author._id  %>">
+                                                <%= author.name %>
+                                            </option>
+                                            <% } %>
+                                        <% }) %>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">   
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label for="publishDate">Publish Date</label>
+                                    <input type="date" name="publishDate" id="publishDate" class="form-control" value="<%= book.publishDate == null ?'':book.publishDate.toISOString().split('T')[0] %>">
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label for="pageCount">Page Count</label>
+                                    <input type="number" name="pageCount" id="pageCount" min="1" class="form-control" placeholder="Enter page count" value="<%= book.pageCount %>">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="description">Description</label>
+                            <textarea class="form-control" id="description" placeholder="Enter description" rows="50" name="description"><%= book.description %></textarea>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label for="coverImage">Cover Image</label>
+                                    <img src="/images/<%=book.coverImage %>"
+									alt="book" class="" id="file" width="140" height="150">
+                                    <input type="file" name="coverImage" id="bookFile" accept="image/*" style="display:none;">
+                                </div>
+                                <div class="col-md-12 text-center">
+								<div class="row mb-3">
+									<div class="mt-2">
+										<a href="javascript:getImg()">change image</a>
+									</div>
+								</div>
+							</div>
+							<span class="text-danger" id="imgErr"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary btn-block">save book</button>
+                        </div>
+                    </form>
+              </div>
+           </div>
+        </div>
+    </div>
+</div>
+  <script src="/js/jquery.min.js"></script>
+  <script src="/js/jquery.validate.min.js"></script>
+  <script src="/js/additional-methods.min.js"></script>
+<script>
+	$('#validate').validate({
+		rules: {
+			title: {
+				required: true,
+				minlength: 4,
+				pattern: /^[a-zA-Z0-9.'-]/
+			},
+            author: {
+				required: true,
+			},
+            publishDate: {
+				required: true,
+			},
+            pageCount: {
+				required: true,
+			},
+            description: {
+				required: true,
+			},
+            bookFile:{
+                required:true,
+                accept: 'image/*'
+            }
+		},
+		messages: {
+			title: {
+				required: "The title is required",
+				minlength: "Title should be at least 4 characters long",
+				pattern: "Title  seems to be invalid"
+			},
+            author: {
+				required: "The author is required"
+			},
+            publishDate: {
+				required: "The publish date is required"
+			},
+            pageCount: {
+				required: "The page count is required"
+			},
+            description: {
+				required: "The description is required"
+			},
+            productFile:{
+                required: "The image is required",
+                accept: "The image type is invalid",
+            }
+		},
+		errorElement: 'span',
+		errorPlacement: function (error, element) {
+			error.addClass('invalid-feedback');
+			element.closest('.form-group').append(error);
+		},
+		highlight: function (element, errorClass, validClass) {
+			$(element).addClass('is-invalid');
+		},
+		unhighlight: function (element, errorClass, validClass) {
+			$(element).removeClass('is-invalid');
+		}
+	});
+
+    function getImg() {
+		$('#bookFile').click();
+	}
+	$('#bookFile').change(function () {
+		var imgLivePath = this.value;
+		var img_extions = imgLivePath.substring(imgLivePath.lastIndexOf('.') + 1).toLowerCase();
+		if (img_extions == "gif" || img_extions == "png" || img_extions == "jpg" || img_extions == "jpeg")
+			readURL(this);
+		else
+			$('#imgErr').text('Please select a valid image file.')
+	});
+
+	function readURL(input) {
+		if (input.files && input.files[0]) {
+			var reader = new FileReader();
+			reader.readAsDataURL(input.files[0]);
+			reader.onload = function (e) {
+				$('#file').attr('src', e.target.result);
+				$('#imgErr').text('')
+			};
+		}
+	}
+</script>
+<%- include("../layouts/footer")%>

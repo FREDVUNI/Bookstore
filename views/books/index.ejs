@@ -1,0 +1,49 @@
+<%- include("../layouts/header")%>
+    <div class="mt-5">
+    <div class="container">
+        <div class="row justify-content-center">
+           <div class="col-lg-6">
+                <div class="mt-5">
+                    <h4 class="text-muted">Books</h4>
+                    <form method="GET" action="/books">
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <div class="form-group">
+                                    <label for="book">Book title</label>
+                                    <input type="text" name="title" id="" class="form-control" placeholder="Enter book title" value="<%=searchOptions.title %>">
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="form-group">
+                                    <label for="date">Published After</label>
+                                    <input type="date" name="publishedAfter" class="form-control" value="<%=searchOptions.publishedAfter %>">
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="form-group">
+                                    <label for="date">Published Before</label>
+                                    <input type="date" name="publishedBefore" class="form-control" value="<%=searchOptions.publishedBefore %>">
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-primary">search</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                <article class="row">
+                    <% books.forEach(book=>{  %>
+                        <div class="col-md-4 mt-3">
+                            <a href="books/<%=book._id %>/view">
+                                <img class="card-img h-100" src="/images/<%=book.coverImage %>" alt="book"/>
+                            </a>
+                        </div>
+                    <% }) %>
+                </article>
+              </div>
+           </div>
+        </div>
+    </div>
+</div>
+<%- include("../layouts/footer")%>

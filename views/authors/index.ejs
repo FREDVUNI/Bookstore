@@ -1,0 +1,43 @@
+<%- include("../layouts/header")%>
+    <div class="mt-5">
+    <div class="container">
+        <div class="row justify-content-center">
+           <div class="col-lg-6">
+                <div class="mt-5">
+                    <h4 class="text-muted">Authors</h4>
+                    <form action="/authors" method="GET">
+                        <div class="form-inline mb-4">
+                            <input type="search" name="name" placeholder="Enter the author" class="form-control" value="<%=search.name  %>"/>
+                            <button type="submit" class="btn btn-primary">search</button>
+                        </div>
+                    </form>
+                     <div class="table-responsive">
+                        <table class="table table-borderless table-thead-bordered table-nowrap table-align-middle">
+                        <tbody>
+                            <% authors.forEach(author=>{  %>
+                            <tr>
+                            <td><%=author.name  %></td>
+                            <td  class="d-flex">
+                                <a class="btns btn-light btn-sm" href="/authors/<%= author._id  %>/view">
+                                    <i class="fa fa-eye"></i>
+                                </a>
+                                <a class="btns btn-light btn-sm" href="/authors/<%= author._id  %>/edit">
+                                    <i class="fa fa-pencil-alt"></i>
+                                </a>
+                                <form method="POST" action="/authors/<%= author._id  %>/delete?_method=DELETE">
+                                    <button type="submit" class="btns btn-light btn-sm">
+                                        <i class="fa fa-trash"></i>
+                                    </button>
+                                </form>
+                            </td>
+                            </tr>
+                            <% }) %>
+                        </tbody>
+                        </table>
+                    </div>
+              </div>
+           </div>
+        </div>
+    </div>
+</div>
+<%- include("../layouts/footer")%>

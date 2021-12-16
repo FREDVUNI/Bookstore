@@ -1,0 +1,49 @@
+<%- include("../layouts/header")%>
+<div class="mt-5">
+    <div class="container">
+        <div class="row justify-content-center">
+           <div class="col-lg-6">
+                <div class="mt-5">
+                <article class="row mb-5"> 
+                    <div class="col-md-5">
+                        <img class="card-img h-100 w-100" src="/images/<%=book.coverImage %>" alt="book"/>
+                    <span class="d-flex mt-3">
+                        <a class="btns btn-light btn-sm" href="/books/<%= book._id  %>/edit">
+                            <i class="fa fa-pencil-alt"></i>
+                        </a>
+                        <form method="POST" action="/books/<%= book._id  %>/delete?_method=DELETE">
+                            <button type="submit" class="btns btn-light btn-sm">
+                                <i class="fa fa-trash"></i>
+                            </button>
+                        </form> 
+                    </span>
+                    </div>
+                    <div class="col-md-7">
+                    <div class="card-body d-flex flex-column h-100 px-0">
+                <h4 class="text-muted"><%= book.title  %></h4>
+
+                        <span class="d-block mb-2">
+                        Author: 
+                        <a class="font-weight-bold" href="/authors/<%=book.author._id %>/view">
+                            <%=book.author.name %>
+                        </a>
+                        </span>
+                        <div class="media align-items-center mt-auto">
+                        <div class="media-body">
+                            <span class="text-dark">
+                            Page Count: 
+                            <a class="d-inline-block text-inherit font-weight-bold"><%=book.pageCount %></a>
+                            </span>
+                            <p>Description: <%=book.description %></p>
+                            <p class="d-block">Publish date: <%= new Date(book.createdAt).toDateString() %></p>
+                        </div>
+                        </div>
+                    </div>
+                    </div>
+                </article>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<%- include("../layouts/footer")%>
