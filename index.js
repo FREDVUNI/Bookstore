@@ -16,7 +16,7 @@ app.use(express.json())
 app.set("view engine","ejs")  
 
 app.use("/",require("./router/routes"))
-app.use("/authors",require("./router/authors"))
+app.use("/authors",require("./router/authors")) 
 app.use("/books",require("./router/books"))
 
 app.use("/css",express.static(path.resolve(__dirname,"assets/css")))
