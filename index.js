@@ -19,7 +19,7 @@ app.use("/",require("./router/routes"))
 app.use("/authors",require("./router/authors")) 
 app.use("/books",require("./router/books"))
 
-app.use("/css",express.static(path.resolve(__dirname,"assets/css")))
+app.use("/css",express.static(path.resolve(__dirname,"assets/css"))) 
 app.use("/js",express.static(path.resolve(__dirname,"assets/js")))
 app.use("/img",express.static(path.resolve(__dirname,"assets/img")))
 app.use("/webfonts",express.static(path.resolve(__dirname,"assets/webfonts")))

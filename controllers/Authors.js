@@ -76,7 +76,7 @@ exports.update = async (req,res) =>{
         })
         await findByIdAndUpdate(req.params.id,{
             $set:author,
-            new:true
+            new:true  
         })
         res.redirect(`/authors`)
     }
