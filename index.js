@@ -15,7 +15,7 @@ app.use(express.urlencoded({extended:true}))
 app.use(express.json())
 app.set("view engine","ejs")  
 
-app.use("/",require("./router/routes"))
+app.use("/",require("./router/routes"))  
 app.use("/authors",require("./router/authors")) 
 app.use("/books",require("./router/books"))
 
