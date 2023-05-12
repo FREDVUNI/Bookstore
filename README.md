@@ -7,7 +7,7 @@ This is a book store application built using Node.js and EJS template engine. It
 1. Clone the repository: `git clone https://github.com/FREDVUNI/Bookstore.git`
 2. Navigate to the project directory: `cd book-store`
 3. Install dependencies: `npm install`
-4. Create a `.env` file by copying `.env.example` and updating the values for your local environment: `cp .env.example .env`
+4. Create a `.env` file and update the values for your local environment accordingly
 5. Set up your local MongoDB database by updating the `MONGODB_URI` value in the `.env` file
 6. Start the server: `npm start`
 
